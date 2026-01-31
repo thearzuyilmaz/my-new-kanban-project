@@ -1,9 +1,12 @@
 // lib/types.ts
+export type Priority = "low" | "medium" | "high";
+
 export interface Card {
   id: string;
   title: string;
   columnId: string;
   order: number;
+  priority?: Priority;
 }
 
 export interface Column {
@@ -32,6 +35,7 @@ export interface Database {
           title: string;
           column_id: string;
           order: number;
+          priority?: Priority;
         };
         Insert: Omit<Card, 'id'> & { id?: string };
         Update: Partial<Card>;

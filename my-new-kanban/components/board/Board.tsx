@@ -1,6 +1,6 @@
 "use client";
 
-import type { Board as BoardType, Card as CardType, Column as ColumnType } from "@/lib/types";
+import type { Board as BoardType, Card as CardType, Column as ColumnType, Priority } from "@/lib/types";
 import { loadBoard, saveBoard } from "@/lib/storage";
 import { generateId } from "@/lib/utils";
 import { Column } from "@/components/column/Column";
@@ -83,6 +83,13 @@ const persist = useCallback((next: BoardType) => {
     persist({
       ...board,
       cards: board.cards.map((c) => (c.id === id ? { ...c, title } : c)),
+    });
+  };
+
+  const updateCardPriority = (id: string, priority: Priority) => {
+    persist({
+      ...board,
+      cards: board.cards.map((c) => (c.id === id ? { ...c, priority } : c)),
     });
   };
 
@@ -194,6 +201,7 @@ const persist = useCallback((next: BoardType) => {
             cards={board.cards.filter((c) => c.columnId === column.id)}
             onAddCard={addCard}
             onUpdateCard={updateCard}
+            onUpdateCardPriority={updateCardPriority}
             onDeleteCard={deleteCard}
             onUpdateColumnTitle={updateColumnTitle}
             onDeleteColumn={deleteColumn}

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Card as CardType, Column as ColumnType } from "@/lib/types";
+import type { Card as CardType, Column as ColumnType, Priority } from "@/lib/types";
 import { Card } from "@/components/card/Card";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ interface ColumnProps {
   cards: CardType[];
   onAddCard: (columnId: string, title: string) => void;
   onUpdateCard: (id: string, title: string) => void;
+  onUpdateCardPriority: (id: string, priority: Priority) => void;
   onDeleteCard: (id: string) => void;
   onUpdateColumnTitle: (id: string, title: string) => void;
   onDeleteColumn: (id: string) => void;
@@ -25,6 +26,7 @@ export function Column({
   cards,
   onAddCard,
   onUpdateCard,
+  onUpdateCardPriority,
   onDeleteCard,
   onUpdateColumnTitle,
   onDeleteColumn,
@@ -132,6 +134,7 @@ export function Column({
             key={card.id}
             card={card}
             onUpdate={onUpdateCard}
+            onUpdatePriority={onUpdateCardPriority}
             onDelete={onDeleteCard}
             onDragStart={onDragStart}
             onDragOver={onDragOver}
