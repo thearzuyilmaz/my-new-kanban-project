@@ -91,7 +91,7 @@ export function Column({
         <button
           type="button"
           onClick={() => onDeleteColumn(column.id)}
-          className="rounded p-1 text-zinc-400 hover:bg-zinc-200 hover:text-red-500 dark:hover:bg-zinc-700 transition-colors"
+          className="rounded p-1 text-blue-500 hover:bg-zinc-200 hover:text-blue-600 dark:hover:bg-zinc-700 transition-colors"
           aria-label="Delete column"
         >
           <svg
