@@ -1,0 +1,86 @@
+# Kanban Project - Cursor Rules
+
+## Project Overview
+
+This is a **local-only kanban board** application. No user authentication, no backend, no database. All data persists in the browser (e.g., localStorage).
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19
+- **Language:** TypeScript (strict mode)
+- **Styling:** Tailwind CSS v4
+- **State:** React state / localStorage for persistence
+
+## Scope Boundaries
+
+- **No auth:** Do not add login, signup, sessions, or user accounts
+- **No backend:** No API routes for data; keep everything client-side
+- **No database:** Use localStorage (or similar) for persistence
+- **Local first:** Single-user, single-machine use only
+
+## Project Structure
+
+```
+app/
+  layout.tsx          # Root layout
+  page.tsx            # Main kanban board view
+  globals.css         # Global styles, Tailwind
+components/
+  board/              # Kanban board components
+  column/             # Column components
+  card/               # Card/task components
+  ui/                 # Reusable UI primitives
+lib/
+  storage.ts          # localStorage helpers
+  types.ts            # Shared TypeScript types
+```
+
+## Code Conventions
+
+### File Naming
+
+- **Components:** PascalCase (e.g., `Board.tsx`, `KanbanColumn.tsx`, `TaskCard.tsx`)
+- **Utilities / lib:** camelCase (e.g., `storage.ts`, `types.ts`)
+- **Folders:** lowercase, descriptive (e.g., `board`, `column`, `card`, `ui`)
+
+### Component Patterns
+
+- Use **client components** (`"use client"`) for interactive UI (drag-and-drop, forms, local state)
+- Use **server components** only when there is no client interactivity
+- Keep components small and focused; extract reusable pieces into `components/ui/`
+- Prefer named exports for components; default exports for pages and layouts
+
+### TypeScript
+
+- Define interfaces/types in `lib/types.ts` for shared shapes (Board, Column, Card, etc.)
+- Avoid `any`; use `unknown` and type guards when types are uncertain
+- Export types from a central module for consistency
+
+### Styling (Tailwind)
+
+- Prefer Tailwind utility classes; avoid custom CSS unless necessary
+- Use semantic color tokens from globals.css (`--background`, `--foreground`) when applicable
+- Support dark mode via `prefers-color-scheme` (already in globals)
+- Use consistent spacing scale (e.g., `gap-4`, `p-4`, `rounded-lg`)
+
+### State & Persistence
+
+- Store kanban data (columns, cards) in React state
+- Sync to localStorage on changes; load from localStorage on mount
+- Debounce or batch writes to localStorage when appropriate
+
+## Kanban Domain
+
+- **Board:** Contains one or more columns
+- **Column:** Has a title and an ordered list of cards
+- **Card:** Has a title, optional description, and belongs to one column
+
+Keep the data model simple. Avoid over-engineering for features like labels, due dates, or comments unless explicitly requested.
+
+## General Rules
+
+1. **Consistency:** Match existing patterns, naming, and structure
+2. **Simplicity:** Favor simple solutions; avoid unnecessary abstractions
+3. **Accessibility:** Use semantic HTML, focus states, and ARIA where relevant
+4. **No breaking changes:** Preserve current scripts (`dev`, `build`, `start`, `lint`)
